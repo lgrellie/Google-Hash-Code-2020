@@ -22,4 +22,11 @@ print(scores)
 print(libraries)
 print(is_scanned)
 
-def scoring()
+def scoring(scores, is_scanned):
+    sum = 0
+    for i in range(len(scores)):
+        sum += scores[i] * is_scanned[i]
+    return sum
+
+
+print(scoring(scores, is_scanned))
