@@ -1,5 +1,8 @@
+# TO DELETE vvvvvvvvvvvvvvv
 sign_up = [1,0]
 scans = [[1, 2, 4], [3, 6]]
+# TO DELETE ^^^^^^^^^^^^^^^
+
 f = open("solution","w+")
 f.write("%d\n" % len(sign_up))
 i = 0
