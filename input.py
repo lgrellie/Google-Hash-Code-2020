@@ -1,6 +1,7 @@
 import copy
+import sys
 
-path = "../instances/b_read_on.txt"
+path = sys.argv[1]
 
 f = open(path, "r")
 if f.mode == 'r':
@@ -12,7 +13,7 @@ if f.mode == 'r':
 scores = list(map(int, contents[1].split(" ")))
 
 libraries = [[[], []] for i in range(L)]
-for l in range(L):
+for l in range(l):
     libraries[l][0] = list(map(int, contents[2 + 2*l].split(" ")))
     libraries[l][1] = list(map(int, contents[3 + 2*l].split(" ")))
 
