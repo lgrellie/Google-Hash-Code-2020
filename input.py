@@ -1,3 +1,5 @@
+import copy
+
 path = "../instances/a_example.txt"
 
 f = open(path, "r")
