@@ -1,4 +1,4 @@
-import input
+from input import *
 
 def scoring(scores, is_scanned):
     sum = 0
@@ -38,28 +38,62 @@ def compute_scanned(scans):
             scanned[b] = 1
     return scanned
 
-def compute_available_libs(libraries, sign_up, day):
+def compute_available_libs(sign_up, day):
     available = []
-    next_day = libraries[sign_up[0]][0][1]
-    i = 0
-    while next_day < day:
-        available.append(sign_up[i])
-        i += 1
-        next_day += libraries[sign_up[i]][0][1]
+    next_day = 0
+    for lib in sign_up:
+        next_day += libraries[lib][0][1]
+        if next_day < day:
+            available += [lib]
+        else:
+            break
+    # while next_day < day:
+    #     available += [sign_up[i]]
+    #     i += 1
+    #     print(i, sign_up, day)
+    #     next_day += libraries[sign_up[i]][0][1]
     return available
 
+def gluton_books(lib, scanned_books):
+    books = []
+    scannable = libraries[lib][1]
+    for i in range(len(scanned_books)):
+        if scanned_books[i]:
+            try:
+                scannable.remove(i)
+            except ValueError:
+                pass
+    for i in range(libraries[lib][0][2]):
+        if scannable:
+            best = scannable[0]
+            for book in scannable:
+                if scores[book] > scores[best]:
+                    best = book
+            books += [best]
+            try:
+                scannable.remove(best)
+            except ValueError:
+                pass
+    return books
 
 def compute_scans(sign_up):
-    scans = [[]]
+    scans = [[] for l in range(L)]
+    scanned_books = [0 for i in range(B)]
     for d in range(D):
         available_libs = compute_available_libs(sign_up, d)
+        print(available_libs)
+        for lib in available_libs:
+            scans[lib] += gluton_books(lib, scanned_books)
+            for list in scans:
+                for i in list:
+                    scanned_books[i] = 1
+    return scans
 
-
-
-
-def find_best_lib(is_scanned, sign_ups, signed_up):
-    best_= -1
-    max_score = 0
-    for l in libraries:
-        break
-    return best
+print("B: {0}\tL: {1}\tD: {2}\n".format(B, L, D))
+print(scores)
+print(libraries)
+scans = compute_scans(list(range(L)))
+is_scanned = compute_scanned(scans)
+print(scans)
+print(is_scanned)
+print(scoring(scores, is_scanned))
