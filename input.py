@@ -1,6 +1,6 @@
 import copy
 
-path = "../instances/a_example.txt"
+path = "../instances/b_read_on.txt"
 
 f = open(path, "r")
 if f.mode == 'r':

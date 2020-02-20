@@ -38,21 +38,7 @@ def compute_scanned(scans):
             scanned[b] = 1
     return scanned
 
-def compute_available_libs(sign_up, day):
-    available = []
-    next_day = 0
-    for lib in sign_up:
-        next_day += libraries[lib][0][1]
-        if next_day < day:
-            available += [lib]
-        else:
-            break
-    # while next_day < day:
-    #     available += [sign_up[i]]
-    #     i += 1
-    #     print(i, sign_up, day)
-    #     next_day += libraries[sign_up[i]][0][1]
-    return available
+
 
 def gluton_books(lib, scanned_books):
     books = []
@@ -75,13 +61,34 @@ def gluton_books(lib, scanned_books):
             except ValueError:
                 pass
     return books
+#
+# def compute_available_libs(sign_up, day):
+#     available = []
+#     next_day = 0
+#     for lib in sign_up:
+#         next_day += libraries[lib][0][1]
+#         if next_day < day:
+#             available += [lib]
+#         else:
+#             break
+#     # while next_day < day:
+#     #     available += [sign_up[i]]
+#     #     i += 1
+#     #     print(i, sign_up, day)
+#     #     next_day += libraries[sign_up[i]][0][1]
+#     return available
 
 def compute_scans(sign_up):
     scans = [[] for l in range(L)]
     scanned_books = [0 for i in range(B)]
+    available_libs = []
+    next_day = libraries[sign_up[0]][0][1]
+    i = 0
     for d in range(D):
-        available_libs = compute_available_libs(sign_up, d)
-        print(available_libs)
+        if next_day < d and i < len(sign_up):
+            available_libs += [sign_up[i]]
+            next_day += libraries[sign_up[i]][0][1]
+            i += 1
         for lib in available_libs:
             scans[lib] += gluton_books(lib, scanned_books)
             for list in scans:
@@ -92,7 +99,17 @@ def compute_scans(sign_up):
 print("B: {0}\tL: {1}\tD: {2}\n".format(B, L, D))
 print(scores)
 print(libraries)
-scans = compute_scans(list(range(L)))
+for lib in libraries:
+    print(lib[0][1])
+
+ordre = [i for i in range(L)]
+for i in range(L):
+    for bulle in range(L - 1):
+        if libraries[ordre[bulle]] > libraries[ordre[bulle + 1]]:
+            ordre[bulle], ordre[bulle + 1] = ordre[bulle + 1], ordre[bulle]
+print(ordre)
+
+scans = compute_scans(ordre)
 is_scanned = compute_scanned(scans)
 print(scans)
 print(is_scanned)
