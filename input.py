@@ -1,6 +1,7 @@
 import copy
+import sys
 
-path = "../instances/a_example.txt"
+path = sys.argv[1]
 
 f = open(path, "r")
 if f.mode == 'r':

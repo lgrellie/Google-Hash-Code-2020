@@ -7,7 +7,7 @@ emax = 2000000
 #Defining voisin()
 def switch_close(scans):
 	switched = scans.copy()
-	index = randint(0, len(switched) - 1)
+	index = random.randint(0, len(switched) - 1)
 	next = (index + 1) if ((index + 1) < len(switched)) else (index - 1)
 	switched[index], switched[next] = switched[next], switched[index]
 	return switched
